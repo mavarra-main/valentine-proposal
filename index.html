@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Valentine Proposal</title>
 
-    <!-- Rounded, friendly font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,12 +12,13 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
     <main class="page" aria-label="Valentine proposal">
-      <section class="card" aria-live="polite">
+      <section class="card" id="card" aria-live="polite">
         <div class="hero" aria-hidden="true">
           <!-- Cute cat face with heart (inline SVG) -->
           <svg class="cat" viewBox="0 0 220 170" role="img" aria-label="Cute cat">
@@ -66,10 +66,10 @@
 
         <h1 id="headline" class="headline">nirali will you be my valentine?</h1>
 
-        <div id="actions" class="actions" aria-label="Answer buttons">
+        <!-- Arena: relative container where No can escape safely -->
+        <div class="arena" id="arena" aria-label="Answer buttons">
           <button id="yesBtn" class="btn btn-yes" type="button">Yes</button>
 
-          <!-- Intentionally not focusable / not clickable -->
           <button
             id="noBtn"
             class="btn btn-no"
@@ -82,9 +82,8 @@
         </div>
 
         <p class="hint">"No" seems a bit shy 😼</p>
-        <p class="hint hint2">Try catching ‘No’ 😼</p>
+        <p class="hint hint2">Try catching "No" 😼</p>
 
-        <!-- Confetti container (created by JS) -->
         <div id="confetti" class="confetti" aria-hidden="true"></div>
       </section>
     </main>

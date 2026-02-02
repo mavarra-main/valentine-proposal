@@ -1,6 +1,7 @@
+/* styles.css */
 /*
   Valentine Proposal — Vanilla HTML/CSS/JS
-  Design: pastel pink background + centered white card
+  Pastel pink background + centered white card + playful buttons.
 */
 
 :root {
@@ -10,7 +11,7 @@
   --text: #1f2937;
   --muted: #6b7280;
 
-  --pink: #ff3d8d; /* hot pink */
+  --pink: #ff3d8d;
   --pink-dark: #e7337f;
   --gray-btn: #e5e7eb;
   --gray-text: #111827;
@@ -72,14 +73,10 @@ body {
   height: auto;
 }
 
-.cat-head {
-  fill: #ffcc9b; /* peach */
-  stroke: rgba(0, 0, 0, 0.06);
-  stroke-width: 2;
-}
-
+/* Cat SVG styling */
+.cat-head,
 .cat-ear {
-  fill: #ffcc9b;
+  fill: #ffcc9b; /* peach */
   stroke: rgba(0, 0, 0, 0.06);
   stroke-width: 2;
 }
@@ -118,7 +115,7 @@ body {
 }
 
 .headline {
-  margin: 10px 0 22px;
+  margin: 10px 0 18px;
   font-size: 34px;
   line-height: 1.1;
   font-weight: 800;
@@ -131,15 +128,25 @@ body {
   }
 }
 
-.actions {
+/* Arena is the only place the No button is allowed to move within */
+.arena {
   position: relative;
-  height: 66px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 12px;
-  padding: 0 12px; /* keeps moving No fully inside visual area */
+  margin: 0 auto 14px;
+  padding: 10px 12px;
+  height: 72px;
+  width: 100%;
+  max-width: 460px;
+}
+
+@media (max-width: 520px) {
+  .arena {
+    height: 92px;
+    max-width: 100%;
+  }
 }
 
 .btn {
@@ -149,16 +156,11 @@ body {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 160ms ease, background-color 160ms ease;
   min-width: 120px;
   -webkit-tap-highlight-color: transparent;
 }
 
 @media (max-width: 520px) {
-  .actions {
-    height: 84px;
-  }
-
   .btn {
     min-width: 108px;
     padding: 12px 20px;
@@ -171,12 +173,14 @@ body {
   outline-offset: 3px;
 }
 
+/* Yes stays centered and always visible */
 .btn-yes {
   background: var(--pink);
   color: white;
   box-shadow: 0 10px 24px rgba(255, 61, 141, 0.28);
   position: relative;
-  z-index: 2; /* Ensure Yes is never hidden behind the moving No */
+  z-index: 2;
+  transition: transform 160ms ease, background-color 160ms ease;
 }
 
 .btn-yes:hover {
@@ -184,17 +188,23 @@ body {
   background: var(--pink-dark);
 }
 
+/* No moves inside arena */
 .btn-no {
   background: var(--gray-btn);
   color: var(--gray-text);
   position: absolute;
-  /* JS will place it. Start hidden to avoid a flash-overlap on mobile. */
   left: 50%;
-  top: 0;
+  top: 10px;
   transform: translateX(-50%);
-  opacity: 0;
   z-index: 1;
-  transition: left 180ms ease, top 180ms ease, opacity 120ms ease;
+
+  user-select: none;
+
+  /* Smooth playful movement */
+  transition: left 180ms ease, top 180ms ease, transform 180ms ease, opacity 120ms ease;
+
+  /* Start hidden until positioned by JS to avoid overlap flashes */
+  opacity: 0;
 }
 
 .hint {
@@ -209,11 +219,11 @@ body {
 }
 
 /* Success state */
-.success {
+.successWrap {
   display: grid;
   gap: 10px;
   justify-items: center;
-  padding-top: 8px;
+  padding-top: 6px;
 }
 
 .successTitle {
