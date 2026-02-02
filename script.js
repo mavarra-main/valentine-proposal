@@ -34,7 +34,11 @@
     const wrap = document.createElement('div');
     wrap.className = 'successWrap';
     wrap.innerHTML = `
-      <p class="successText">Best decision ever. See you on our valentine date ✨</p>
+      <p class="successTitle">Riya 🌸</p>
+      <p class="successText">You just made my heart smile.</p>
+      <p class="successText">This little “yes” means more to me than you know.</p>
+      <p class="successText">Here’s to laughs that last too long, moments that feel like magic, and choosing each other—again and again.</p>
+      <p class="successText">I’m really glad it’s you. 💕✨</p>
     `;
     headline.insertAdjacentElement('afterend', wrap);
 

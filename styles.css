@@ -58,8 +58,8 @@ body {
 
 @media (max-width: 520px) {
   .card {
-    width: min(92vw, 390px);
-    padding: 24px 16px;
+    width: min(94vw, 390px);
+    padding: 22px 14px;
   }
 }
 
@@ -125,7 +125,7 @@ body {
 
 @media (max-width: 520px) {
   .headline {
-    font-size: 26px;
+    font-size: 24px;
   }
 }
 
@@ -146,7 +146,8 @@ body {
   .arena {
     height: 128px;
     max-width: 100%;
-    padding: 8px 0 16px;
+    justify-content: flex-start;
+    padding: 8px 0 16px 12px;
   }
 }
 
@@ -239,7 +240,20 @@ body {
 
 .successText {
   margin: 0;
+  max-width: 540px;
+  line-height: 1.5;
   color: var(--muted);
+}
+
+@media (max-width: 520px) {
+  .successTitle {
+    font-size: 34px;
+  }
+
+  .successText {
+    max-width: 100%;
+    font-size: 14px;
+  }
 }
 
 /* Confetti */
