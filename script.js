@@ -71,15 +71,34 @@
   });
 
   // Place the "No" button initially near the right side of the actions row.
-  // We'll move it within the actions bounding box.
-  positionNoButtonInitial();
+  // We do this after layout to avoid overlap/flash on mobile.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      positionNoButtonInitial();
+      noBtn.style.opacity = '1';
+    });
+  });
 
-  // Escape triggers (mouse)
+  // Reposition on resize/orientation changes.
+  window.addEventListener('resize', () => positionNoButtonInitial());
+  window.addEventListener('orientationchange', () => positionNoButtonInitial());
+
+  // Escape triggers (mouse/pointer)
   noBtn.addEventListener('mouseenter', escape);
   actions.addEventListener('mousemove', (e) => {
     // If mouse gets close to the No button, escape.
     if (distanceToButton(e.clientX, e.clientY) < 90) escape();
   });
+
+  // Pointer events help on some mobile browsers.
+  noBtn.addEventListener(
+    'pointerdown',
+    (e) => {
+      e.preventDefault();
+      escape(true);
+    },
+    { passive: false }
+  );
 
   // Tap support (mobile): on touch near/on "No", it jumps away.
   // We do NOT use DeviceMotion/DeviceOrientation (explicitly removed).
@@ -109,15 +128,20 @@
     actions.style.position = 'relative';
     noBtn.style.position = 'absolute';
 
-    // Put it roughly to the right of the yes button.
     const a = actions.getBoundingClientRect();
     const y = yesBtn.getBoundingClientRect();
 
+    // If the button has not measured yet, skip.
+    if (!noBtn.offsetWidth || !noBtn.offsetHeight) return;
+
+    // Place it to the right of Yes, but clamped.
     const left = clamp((y.left - a.left) + y.width + 16, 8, a.width - noBtn.offsetWidth - 8);
     const top = clamp((y.top - a.top), 6, a.height - noBtn.offsetHeight - 6);
 
     noBtn.style.left = `${left}px`;
     noBtn.style.top = `${top}px`;
+    noBtn.style.transform = 'translateX(0)';
+    noBtn.style.opacity = '1';
   }
 
   function distanceToButton(x, y) {

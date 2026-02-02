@@ -139,6 +139,7 @@ body {
   justify-content: center;
   gap: 16px;
   margin-bottom: 12px;
+  padding: 0 12px; /* keeps moving No fully inside visual area */
 }
 
 .btn {
@@ -174,6 +175,8 @@ body {
   background: var(--pink);
   color: white;
   box-shadow: 0 10px 24px rgba(255, 61, 141, 0.28);
+  position: relative;
+  z-index: 2; /* Ensure Yes is never hidden behind the moving No */
 }
 
 .btn-yes:hover {
@@ -185,10 +188,13 @@ body {
   background: var(--gray-btn);
   color: var(--gray-text);
   position: absolute;
-  right: 0;
-  /* Start near the Yes button, then JS will reposition */
-  transform: translateX(0);
-  transition: left 180ms ease, top 180ms ease;
+  /* JS will place it. Start hidden to avoid a flash-overlap on mobile. */
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 1;
+  transition: left 180ms ease, top 180ms ease, opacity 120ms ease;
 }
 
 .hint {
